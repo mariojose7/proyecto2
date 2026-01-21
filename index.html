@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atrapa mi amor💖</title>
+<title>Atrapa los Corazones💖</title>
 
 <style>
   * {
@@ -14,27 +14,42 @@
   body {
     margin: 0;
     font-family: Arial, sans-serif;
-    overflow: hidden;
     background: #ffdde1;
+    display: flex;
+    justify-content: center;
   }
 
-  /* ================= GAME ================= */
-  #game {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
+  /* CONTENEDOR GENERAL */
+  #container {
+    width: 100%;
+    max-width: 480px;   /* margen natural en pantallas grandes */
+    min-height: 100vh;
     background: linear-gradient(#ff9a9e, #fad0c4);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* TEXTO SUPERIOR */
+  #title {
+    text-align: center;
+    padding: 15px 10px 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
   }
 
   #score {
-    position: absolute;
-    top: 15px;
-    width: 100%;
     text-align: center;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     color: #fff;
-    z-index: 10;
+    margin-bottom: 5px;
+  }
+
+  /* ÁREA DE JUEGO */
+  #game {
+    position: relative;
+    height: calc(100vh - 120px);
   }
 
   #basket {
@@ -50,7 +65,7 @@
     font-size: 36px;
   }
 
-  /* ================= SCREENS ================= */
+  /* PANTALLAS */
   .screen {
     position: fixed;
     inset: 0;
@@ -83,7 +98,7 @@
     color: white;
   }
 
-  /* ================= FINAL HEARTS ================= */
+  /* CORAZONES FINALES */
   .floating-heart {
     position: absolute;
     font-size: 28px;
@@ -106,31 +121,67 @@
 
 <body>
 
-<!-- GAME -->
-<div id="game">
+<div id="container">
+
+  <div id="title">💖Atrapa 7 corazones para obtener un premio💖</div>
+  <div id="title">¡Cuidado! los enojos😡 o tristezas😭 te restan puntos</div>
+  <p></p>
   <div id="score">Puntos: 0 / 7</div>
-  <div id="basket">🧺</div>
+
+  <div id="game">
+    <div id="basket">🧺</div>
+  </div>
 </div>
 
-<!-- SCREEN 1 -->
+<!-- PANTALLA INTERMEDIA -->
 <div id="screenReady" class="screen">
   <div>
     <h1>💌</h1>
-    <p>Tengo preparado algo para ti</p>
+    <p>Tengo algo para ti</p>
     <button id="showFinal">Ver</button>
   </div>
 </div>
 
-<!-- SCREEN 2 -->
+<!-- PANTALLA FINAL -->
 <div id="screenFinal" class="screen">
   <div>
     <h1>❤️</h1>
     <p>
-      Eres lo mejor de mi vida<br>
-      te ganaste 1 coquita jaja ❤️
+      Eres lo mejor de mi vida, ya casi sabes!!!<br>
     </p>
   </div>
 </div>
+
+<!-- PANTALLA FINAL 1 -->
+<div id="screenFinal1" class="screen">
+  <div>
+    <h1>⏳</h1>
+    <p>
+    Ya quieres saber o no? jaja
+    </p>
+  </div>
+</div>
+
+<!-- PANTALLA FINAL 2 -->
+<div id="screenFinal2" class="screen">
+  <div>
+    <h1>🥰</h1>
+    <p>
+    Que inteligente soy verdad jaja verdad que siii 
+    </p>
+  </div>
+</div>
+
+<!-- PANTALLA FINAL 3 -->
+<div id="screenFinal3" class="screen">
+  <div>
+    <h1>❤️</h1>
+    <p>
+    ¡¡¡¡¡ Te ganaste una coquita !!!!!
+    </p>
+  </div>
+</div>
+
 
 <script>
   const game = document.getElementById("game");
@@ -138,6 +189,9 @@
   const scoreText = document.getElementById("score");
   const screenReady = document.getElementById("screenReady");
   const screenFinal = document.getElementById("screenFinal");
+  const screenFinal1 = document.getElementById("screenFinal1");
+  const screenFinal2 = document.getElementById("screenFinal2");
+  const screenFinal3 = document.getElementById("screenFinal3");
   const showFinalBtn = document.getElementById("showFinal");
 
   let score = 0;
@@ -160,7 +214,6 @@
     const emoji = document.createElement("div");
     emoji.className = "emoji";
 
-    // Probabilidades (más negativos)
     const rand = Math.random();
     let type;
 
@@ -171,7 +224,8 @@
     emoji.textContent = type.char;
     emoji.dataset.value = type.value;
 
-    emoji.style.left = Math.random() * (window.innerWidth - 40) + "px";
+    emoji.style.left =
+      Math.random() * (game.clientWidth - 40) + "px";
     emoji.style.top = "-40px";
 
     game.appendChild(emoji);
@@ -192,12 +246,10 @@
 
         scoreText.textContent = `Puntos: ${score} / ${goal}`;
 
-        if (score >= goal) {
-          endGame();
-        }
+        if (score >= goal) endGame();
       }
 
-      if (y > window.innerHeight) {
+      if (y > game.clientHeight) {
         clearInterval(fall);
         emoji.remove();
       }
