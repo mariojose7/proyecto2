@@ -17,21 +17,28 @@
     background: #ffdde1;
     display: flex;
     justify-content: center;
+    align-items: center;
+    min-height: 100svh;
   }
 
+  /* CONTENEDOR GENERAL */
   #container {
     width: 100%;
     max-width: 480px;
-    min-height: 100vh;
+    height: 100svh;
     background: linear-gradient(#ff9a9e, #fad0c4);
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
     overflow: hidden;
   }
 
+  /* TEXTO SUPERIOR */
   #title {
     text-align: center;
-    padding: 15px 10px 5px;
-    font-size: 18px;
+    padding: 10px;
+    font-size: 17px;
     font-weight: bold;
     color: #fff;
   }
@@ -41,29 +48,31 @@
     font-size: 20px;
     font-weight: bold;
     color: #fff;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
   }
 
+  /* ÁREA DE JUEGO */
   #game {
+    flex: 1;
     position: relative;
-    height: calc(100vh - 140px);
     touch-action: none;
   }
 
   #basket {
     position: absolute;
-    bottom: 30px;
-    font-size: 60px;
+    bottom: 20px;
+    font-size: 56px;
     left: 50%;
     transform: translateX(-50%);
   }
 
   .emoji {
     position: absolute;
-    font-size: 36px;
+    font-size: 34px;
     pointer-events: none;
   }
 
+  /* PANTALLAS */
   .screen {
     position: fixed;
     inset: 0;
@@ -78,7 +87,7 @@
   }
 
   .screen h1 {
-    font-size: 32px;
+    font-size: 34px;
     color: #ff9a9e;
   }
 
@@ -96,16 +105,17 @@
     color: white;
   }
 
+  /* CORAZONES FLOTANTES */
   .floating-heart {
     position: absolute;
-    font-size: 28px;
+    font-size: 26px;
     animation: float 4s linear infinite;
     opacity: 0.8;
   }
 
   @keyframes float {
     from { transform: translateY(0) scale(1); opacity: 1; }
-    to { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    to { transform: translateY(-100svh) scale(1.4); opacity: 0; }
   }
 </style>
 </head>
@@ -113,8 +123,8 @@
 <body>
 
 <div id="container">
-  <div id="title">💖Atrapa 7 corazones para obtener un premio💖</div>
-  <div id="title">¡Cuidado! 😡 😢 restan puntos</div>
+  <div id="title">💖 Atrapa 7 corazones para obtener un premio 💖</div>
+  <div id="title">😡 😢 restan puntos</div>
   <div id="score">Puntos: 0 / 7</div>
 
   <div id="game">
@@ -122,7 +132,7 @@
   </div>
 </div>
 
-<!-- PANTALLA READY -->
+<!-- PANTALLAS -->
 <div id="screenReady" class="screen">
   <div>
     <h1>💌</h1>
@@ -131,34 +141,30 @@
   </div>
 </div>
 
-<!-- PANTALLA 1 -->
 <div id="screenFinal" class="screen">
   <div>
     <h1>❤️</h1>
     <p>Eres lo mejor de mi vida, ya casi sabes!!!</p>
-    <button onclick="showScreen(screenFinal1)">YA QUIERO VER</button>
+    <button onclick="showScreen(screenFinal1)">Siguiente</button>
   </div>
 </div>
 
-<!-- PANTALLA 2 -->
 <div id="screenFinal1" class="screen">
   <div>
     <h1>⏳</h1>
     <p>¿Ya quieres saber o no? jaja</p>
-    <button onclick="showScreen(screenFinal2)">NO PUEDO RESISTIR</button>
+    <button onclick="showScreen(screenFinal2)">Siguiente</button>
   </div>
 </div>
 
-<!-- PANTALLA 3 -->
 <div id="screenFinal2" class="screen">
   <div>
     <h1>🥰</h1>
     <p>Que inteligente soy verdad jaja verdad que siii</p>
-    <button onclick="showScreen(screenFinal3); startHearts()">SI BEBE ERES EL MEJOR Y EL MAS RICOTE</button>
+    <button onclick="showScreen(screenFinal3); startHearts()">Ver premio</button>
   </div>
 </div>
 
-<!-- PANTALLA FINAL -->
 <div id="screenFinal3" class="screen">
   <div>
     <h1>❤️</h1>
